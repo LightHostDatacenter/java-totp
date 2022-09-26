@@ -65,6 +65,7 @@ public class QrData {
     public String getUri() {
         return "otpauth://" +
                 uriEncode(type) + "/" +
+                uriEncode(issuer) + ":" +
                 uriEncode(label) + "?" +
                 "secret=" + uriEncode(secret) +
                 "&issuer=" + uriEncode(issuer) +
