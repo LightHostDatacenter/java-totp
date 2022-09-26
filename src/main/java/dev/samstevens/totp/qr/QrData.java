@@ -13,6 +13,7 @@ public class QrData {
     private final String label;
     private final String secret;
     private final String issuer;
+    private final String image;
     private final String algorithm;
     private final int digits;
     private final int period;
@@ -20,11 +21,12 @@ public class QrData {
     /**
      * Force use of builder to create instances.
      */
-    private QrData(String type, String label, String secret, String issuer, String algorithm, int digits, int period) {
+    private QrData(String type, String label, String secret, String issuer, String image, String algorithm, int digits, int period) {
         this.type = type;
         this.label = label;
         this.secret = secret;
         this.issuer = issuer;
+        this.image = image;
         this.algorithm = algorithm;
         this.digits = digits;
         this.period = period;
@@ -44,6 +46,10 @@ public class QrData {
 
     public String getIssuer() {
         return issuer;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public String getAlgorithm() {
@@ -69,6 +75,7 @@ public class QrData {
                 uriEncode(label) + "?" +
                 "secret=" + uriEncode(secret) +
                 "&issuer=" + uriEncode(issuer) +
+                "&image=" + uriEncode(image) +
                 "&algorithm=" + uriEncode(algorithm) +
                 "&digits=" + digits +
                 "&period=" + period;
@@ -92,6 +99,7 @@ public class QrData {
         private String label;
         private String secret;
         private String issuer;
+        private String image;
         private HashingAlgorithm algorithm = HashingAlgorithm.SHA1;
         private int digits = 6;
         private int period = 30;
@@ -111,6 +119,11 @@ public class QrData {
             return this;
         }
 
+        public Builder image(String image) {
+            this.image = image;
+            return this;
+        }
+
         public Builder algorithm(HashingAlgorithm algorithm) {
             this.algorithm = algorithm;
             return this;
@@ -127,7 +140,7 @@ public class QrData {
         }
 
         public QrData build() {
-            return new QrData("totp", label, secret, issuer, algorithm.getFriendlyName(), digits, period);
+            return new QrData("totp", label, secret, issuer, image, algorithm.getFriendlyName(), digits, period);
         }
     }
 }
